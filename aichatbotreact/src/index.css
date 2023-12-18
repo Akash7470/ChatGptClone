@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  font-family: "Roboto";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Edge */
+
+::webkit-scrollbar {
+  display: none;
+}
+
+/* Optional: Style the scrollbar track */
+::webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+/* Optional: Style the scrollbar handle */
+::webkit-scrollbar-thumb {
+  background-color: #888;
+}
