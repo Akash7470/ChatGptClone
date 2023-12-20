@@ -2,7 +2,12 @@ import React from "react";
 import { Box, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-const UserInput = ({ handleKeyDown, handleChange, handleClick }) => {
+const UserInput = ({
+  handleKeyDown,
+  handleChange,
+  handleClick,
+  userInputData,
+}) => {
   const inputFieldStyle = {
     display: "flex",
     justifyContent: "center",
@@ -12,7 +17,7 @@ const UserInput = ({ handleKeyDown, handleChange, handleClick }) => {
   return (
     <div style={inputFieldStyle}>
       <Box
-        width={"50vw"}
+        width={"46vw"}
         position={"fixed"}
         bottom={"40px"}
         display={"flex"}
@@ -26,8 +31,12 @@ const UserInput = ({ handleKeyDown, handleChange, handleClick }) => {
           onChange={handleChange}
           autoFocus={true}
           onKeyDown={handleKeyDown}
+          value={userInputData}
         />
-        <SendIcon sx={{ rotate: "320deg" }} onClick={handleClick} />
+        <SendIcon
+          sx={{ rotate: "320deg", marginLeft: "-45px", fontSize: "28px" }}
+          onClick={handleClick}
+        />
       </Box>
     </div>
   );
