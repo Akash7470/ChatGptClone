@@ -9,7 +9,6 @@ import MyContext from "../context/MyContext";
 const LeftDraw = () => {
   const [isHidden, setIsHidden] = useState(true);
   const contextData = useContext(MyContext);
-  // console.log(contextData, "contextData:----");
 
   const toggleVisibility = () => {
     setIsHidden(!isHidden);
@@ -33,10 +32,9 @@ const LeftDraw = () => {
     >
       <Navbar handleClick={handleClick} />
       <Stack spacing={2} style={{ overflowY: "scroll", maxHeight: "80vh" }}>
-        <ListItem>{contextData}</ListItem>
-        <ListItem>Assets</ListItem>
-        <ListItem>Groups</ListItem>
-        <ListItem>Dasta</ListItem>
+        {contextData?.map((ques, index) => {
+          return <ListItem key={index}>{ques}</ListItem>;
+        })}
       </Stack>
       <Footer />
       {/* <IconButton
