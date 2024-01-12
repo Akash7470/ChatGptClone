@@ -6,7 +6,7 @@ const UserInput = ({
   handleKeyDown,
   handleChange,
   handleClick,
-  userInputData,
+  textFieldRef,
 }) => {
   const inputFieldStyle = {
     display: "flex",
@@ -26,12 +26,15 @@ const UserInput = ({
       >
         <TextField
           fullWidth
+          inputRef={textFieldRef}
           placeholder="Fire question to Asset Pandas Bot....."
           variant="outlined"
           onChange={handleChange}
           autoFocus={true}
+          defaultValue={""}
           onKeyDown={handleKeyDown}
-          value={userInputData}
+          autoSave="Off"
+          autoComplete="Off"
         />
         <SendIcon
           sx={{ rotate: "320deg", marginLeft: "-45px", fontSize: "28px" }}

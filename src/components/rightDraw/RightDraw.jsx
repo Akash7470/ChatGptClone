@@ -3,8 +3,6 @@ import "textillate";
 import { Box, Container, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import UserInput from "./UserInput";
-import GridViewIcon from "@mui/icons-material/GridView";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
 import apiHandle from "../services/apiHandle";
 import logo from "../../Images/logo.png";
 import human from "../../Images/human.png";
@@ -16,6 +14,7 @@ const RightDraw = ({
   handleChange,
   questionStatement,
   userInputData,
+  textFieldRef,
 }) => {
   const animatedRef = useRef(null);
   const [answerStatement, setAnswerStatement] = useState("");
@@ -25,24 +24,30 @@ const RightDraw = ({
     height: "28px",
     borderRadius: "50%",
     backgroundColor: "none",
+    marginTop: "30px",
   };
 
   const sideLogo = {
-    position: "fixed",
+    position: "absolute",
     padding: "20px 0px",
     width: "200px",
+    left: "18vw",
   };
 
   const typoTextStyle = {
+    width: "100%",
     textAlign: "left",
     fontFamily: "roboto",
     fontSize: "19px",
     fontWeight: "500",
-    lineHeight: "1.4",
-    marginTop: "27px",
-  };
+    lineHeight: "1.2",
+    // marginTop: "27px",
+    boxShadow: 3,
+    padding: 1.5,
+    margin: 2,
 
-  const isSmallScreen = useMediaQuery({ maxWidth: 1200 });
+    borderRadius: 2,
+  };
 
   const handleKeyDown = (event) => {
     if (event.keyCode === 13 || event.which === 13) {
@@ -53,18 +58,22 @@ const RightDraw = ({
   const userInputResponse = async () => {
     debouncedClick();
     try {
-      const response = await apiHandle.post("webhook/", {
-        data: userInputData,
+      const response = await apiHandle.post("query", {
+        query: userInputData,
       });
-      setAnswerStatement(response.message);
+      console.log(response);
+      setAnswerStatement(response);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    const animateOptions = { in: { effect: "fadeIn" } };
-
+    const animateOptions = {
+      in: {
+        effect: "fadeIn",
+      },
+    };
     if (animatedRef.current !== null) {
       window.$(animatedRef.current).textillate(animateOptions);
     }
@@ -72,36 +81,51 @@ const RightDraw = ({
 
   return (
     <>
-      <img style={sideLogo} src={bgTheme} alt="" srcset="" />
-      <Container maxWidth={"md"}>
+      <Container maxWidth={"md"} flexDirection={"column"}>
+        <Box>
+          <img style={sideLogo} src={bgTheme} alt="" srcSet="" />
+        </Box>
+
         <Box display={"flex"} alignItems={"center"} gap={2}>
           <img style={logoCircle} src={human} alt="logo not visible" />
           <Typography sx={typoTextStyle}>
             <b>You</b>
-            <br />
-            {questionStatement !== ""
-              ? questionStatement.charAt(0).toUpperCase() +
-                questionStatement.substring(1, questionStatement.length)
-              : "Hey, I am a Panda's bot"}
+            {questionStatement !== "" ? (
+              <p>
+                {questionStatement?.charAt(0).toUpperCase() +
+                  questionStatement?.substring(1, questionStatement.length)}
+              </p>
+            ) : (
+              <p key={1} ref={animatedRef}>
+                Hey, Welcome to Asset Pandas.I am ChatBot, How can I help you ?
+              </p>
+            )}
           </Typography>
         </Box>
         <Box marginTop={"20px"} display={"flex"} alignItems={"top"} gap={2}>
+          {/* {textFieldRef.current?.value !== "" && (
+            <> */}
           <img style={logoCircle} src={logo} alt="logo not visible" />
+          {/* <Typography fontWeight={"bold"} fontSize={"20px"}> */}
 
-          {answerStatement !== "" ? (
-            <Typography ref={animatedRef} sx={typoTextStyle}>
-              <b>Pandas</b>
-              <br />
-              {answerStatement}
-            </Typography>
-          ) : null}
+          {/* </Typography> */}
+          {/* </>
+          )} */}
+          <Typography sx={typoTextStyle}>
+            <b> Pandas</b>
+            {answerStatement !== "" && (
+              <p key={answerStatement} ref={animatedRef}>
+                {answerStatement}
+              </p>
+            )}
+          </Typography>
         </Box>
       </Container>
       <UserInput
         handleChange={handleChange}
         handleClick={userInputResponse}
         handleKeyDown={handleKeyDown}
-        userInputData={userInputData}
+        textFieldRef={textFieldRef}
       />
     </>
   );

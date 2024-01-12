@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import LeftDraw from "../leftDraw/LeftDraw";
 import RightDraw from "../rightDraw/RightDraw";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import MyContext from "../context/MyContext";
 import _debounce from "lodash/debounce";
 import bgtheme from "../../Images/asset_pandas_bg.png";
@@ -15,8 +15,25 @@ const Homepage = () => {
     overflowY: "scroll",
     maxHeight: "88vh",
     maxWidth: "lg",
-    backgroundImage: bgtheme,
+    bgcolour: "silver",
+    maxWidth: "300",
+    width: "100%",
+    bgColor: "gray",
+    // backgroundImage: bgtheme,
   };
+
+  const bgText = {
+    position: "absolute",
+    zIndex: "1",
+    left: "30%",
+    top: "17%",
+    color: "#fafafa",
+    lineHeight: "0.9",
+    fontSize: "10vw",
+    fontWeight: "500",
+  };
+
+  const textFieldRef = useRef(null);
 
   useEffect(() => {
     if (questionStatement !== "") {
@@ -26,9 +43,14 @@ const Homepage = () => {
 
   const handleClickUserInput = () => {
     setQuestionStatement(userInputData);
-    setUserInputData("");
+    const textField = textFieldRef.current;
+    if (textField) {
+      textField.value = "";
+    }
   };
   const handleChange = (e) => {
+    if (e.target.value === "") {
+    }
     setUserInputData(e.target.value);
   };
 
@@ -41,12 +63,18 @@ const Homepage = () => {
           <Grid item xs={2}>
             <LeftDraw />
           </Grid>
-          <Grid item xs={10} style={bgThemeStyle}>
+          <Typography sx={bgText} variant="h1">
+            <span> Welcome To </span> <br />
+            <span style={{ marginLeft: "200px" }}>Asset</span> <br />
+            <span>Panda Chatbot</span>
+          </Typography>
+          <Grid item xs={10} sx={{ zIndex: "100" }} style={bgThemeStyle}>
             <RightDraw
               handleChange={handleChange}
               debouncedClick={debouncedClick}
               userInputData={userInputData}
               questionStatement={questionStatement}
+              textFieldRef={textFieldRef}
             />
           </Grid>
         </Grid>
