@@ -2,7 +2,12 @@ import React from "react";
 import { Box, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-const UserInput = ({ handleKeyDown, handleChange, handleClick }) => {
+const UserInput = ({
+  handleKeyDown,
+  handleChange,
+  handleClick,
+  textFieldRef,
+}) => {
   const inputFieldStyle = {
     display: "flex",
     justifyContent: "center",
@@ -12,7 +17,7 @@ const UserInput = ({ handleKeyDown, handleChange, handleClick }) => {
   return (
     <div style={inputFieldStyle}>
       <Box
-        width={"50vw"}
+        width={"46vw"}
         position={"fixed"}
         bottom={"40px"}
         display={"flex"}
@@ -21,13 +26,20 @@ const UserInput = ({ handleKeyDown, handleChange, handleClick }) => {
       >
         <TextField
           fullWidth
+          inputRef={textFieldRef}
           placeholder="Fire question to Asset Pandas Bot....."
           variant="outlined"
           onChange={handleChange}
           autoFocus={true}
+          defaultValue={""}
           onKeyDown={handleKeyDown}
+          autoSave="Off"
+          autoComplete="Off"
         />
-        <SendIcon sx={{ rotate: "320deg" }} onClick={handleClick} />
+        <SendIcon
+          sx={{ rotate: "320deg", marginLeft: "-45px", fontSize: "28px" }}
+          onClick={handleClick}
+        />
       </Box>
     </div>
   );
