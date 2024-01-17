@@ -15,10 +15,9 @@ const Homepage = () => {
     overflowY: "scroll",
     maxHeight: "88vh",
     maxWidth: "lg",
-    bgcolour: "silver",
+    bgColor: "#f44336",
     maxWidth: "300",
     width: "100%",
-    bgColor: "gray",
     // backgroundImage: bgtheme,
   };
 
@@ -63,11 +62,7 @@ const Homepage = () => {
           <Grid item xs={2}>
             <LeftDraw />
           </Grid>
-          <Typography sx={bgText} variant="h1">
-            <span> Welcome To </span> <br />
-            <span style={{ marginLeft: "200px" }}>Asset</span> <br />
-            <span>Panda Chatbot</span>
-          </Typography>
+
           <Grid item xs={10} sx={{ zIndex: "100" }} style={bgThemeStyle}>
             <RightDraw
               handleChange={handleChange}

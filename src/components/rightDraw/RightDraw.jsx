@@ -18,6 +18,7 @@ const RightDraw = ({
 }) => {
   const animatedRef = useRef(null);
   const [answerStatement, setAnswerStatement] = useState("");
+  const [quesAnsList, setQuesAnsList] = useState([]);
 
   const logoCircle = {
     width: "28px",
@@ -41,11 +42,9 @@ const RightDraw = ({
     fontSize: "19px",
     fontWeight: "500",
     lineHeight: "1.2",
-    // marginTop: "27px",
-    boxShadow: 3,
+    boxShadow: 4,
     padding: 1.5,
     margin: 2,
-
     borderRadius: 2,
   };
 
@@ -87,39 +86,46 @@ const RightDraw = ({
         </Box>
 
         <Box display={"flex"} alignItems={"center"} gap={2}>
-          <img style={logoCircle} src={human} alt="logo not visible" />
-          <Typography sx={typoTextStyle}>
-            <b>You</b>
-            {questionStatement !== "" ? (
-              <p>
-                {questionStatement?.charAt(0).toUpperCase() +
-                  questionStatement?.substring(1, questionStatement.length)}
-              </p>
-            ) : (
-              <p key={1} ref={animatedRef}>
-                Hey, Welcome to Asset Pandas.I am ChatBot, How can I help you ?
-              </p>
-            )}
-          </Typography>
-        </Box>
-        <Box marginTop={"20px"} display={"flex"} alignItems={"top"} gap={2}>
-          {/* {textFieldRef.current?.value !== "" && (
-            <> */}
-          <img style={logoCircle} src={logo} alt="logo not visible" />
-          {/* <Typography fontWeight={"bold"} fontSize={"20px"}> */}
+          {questionStatement !== "" ? (
+            <img style={logoCircle} src={human} alt="logo not visible" />
+          ) : (
+            <img style={logoCircle} src={logo} alt="logo not visible" />
+          )}
 
-          {/* </Typography> */}
-          {/* </>
-          )} */}
           <Typography sx={typoTextStyle}>
-            <b> Pandas</b>
-            {answerStatement !== "" && (
-              <p key={answerStatement} ref={animatedRef}>
-                {answerStatement}
-              </p>
+            {questionStatement !== "" ? (
+              <>
+                <b>You</b>
+                <p>
+                  {questionStatement?.charAt(0).toUpperCase() +
+                    questionStatement?.substring(1, questionStatement.length)}
+                </p>
+              </>
+            ) : (
+              <>
+                <b>Pandas</b>
+                {/* <span>{Date.now()}</span> */}
+                <p key={1} ref={animatedRef}>
+                  Hey, Welcome to Asset Pandas.I am ChatBot, How can I help you
+                  ?
+                </p>
+              </>
             )}
           </Typography>
         </Box>
+        {questionStatement !== "" && (
+          <Box marginTop={"20px"} display={"flex"} alignItems={"top"} gap={2}>
+            <img style={logoCircle} src={logo} alt="logo not visible" />
+            <Typography sx={typoTextStyle}>
+              <b>Pandas</b>
+              {answerStatement !== "" && (
+                <p key={answerStatement} ref={animatedRef}>
+                  {answerStatement}
+                </p>
+              )}
+            </Typography>
+          </Box>
+        )}
       </Container>
       <UserInput
         handleChange={handleChange}
