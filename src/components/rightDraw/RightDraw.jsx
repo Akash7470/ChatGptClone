@@ -141,7 +141,7 @@ const RightDraw = ({ setQuesAnsList, quesAnsList }) => {
                                 class="font-semibold select-none"
                                 style={{ fontFamily: "system-ui" }}
                               >
-                                ChatGPT
+                                PandaBOT
                               </div>
                               <div class="flex-col gap-1 md:gap-3">
                                 <div class="flex flex-grow flex-col max-w-full">
@@ -195,7 +195,7 @@ const RightDraw = ({ setQuesAnsList, quesAnsList }) => {
                           class="font-semibold select-none"
                           style={{ fontFamily: "system-ui" }}
                         >
-                          ChatGPT
+                          PandaBOT
                         </div>
                         <div class="flex-col gap-1 md:gap-3">
                           <div class="flex flex-grow flex-col max-w-full">
