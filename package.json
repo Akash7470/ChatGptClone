@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0",
     "react-responsive": "^9.0.2",
     "react-scripts": "5.0.1",
+    "tailwind": "^4.0.0",
     "textillate": "^0.4.1",
     "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
@@ -46,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
   }
 }
