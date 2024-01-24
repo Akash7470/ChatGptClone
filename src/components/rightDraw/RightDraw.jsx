@@ -8,6 +8,7 @@ import human from "../../Images/human.png";
 
 const RightDraw = ({ setQuesAnsList, quesAnsList }) => {
   const [userInputData, setUserInputData] = useState("");
+  const [buttonDisabled, setButtonDisable] = useState(false);
   const animatedRef = useRef(null);
   const textFieldRef = useRef(null);
 
@@ -25,7 +26,13 @@ const RightDraw = ({ setQuesAnsList, quesAnsList }) => {
   const debouncedClick = _debounce(handleClickUserInput, 1000);
 
   const handleKeyDown = (event) => {
-    if (event.keyCode === 13 || event.which === 13) {
+    if (event.key === "Enter" && event.shiftKey) {
+      setUserInputData((prevValue) => prevValue + "\n");
+    } else if (
+      event.keyCode === 13 ||
+      event.which === 13 ||
+      event.key === "Enter"
+    ) {
       handleSendMessage();
     }
   };
@@ -36,7 +43,6 @@ const RightDraw = ({ setQuesAnsList, quesAnsList }) => {
       const response = await apiHandle.post("query", {
         query: userInputData,
       });
-
       setQuesAnsList((prevList) => [
         ...prevList,
         {
@@ -54,13 +60,15 @@ const RightDraw = ({ setQuesAnsList, quesAnsList }) => {
       in: {
         effect: "fadeIn",
       },
+      callback: () => {
+        setButtonDisable(false);
+      },
     };
+    setButtonDisable(true);
     if (animatedRef.current !== null) {
       window.$(animatedRef.current).textillate(animateOptions);
     }
   }, [quesAnsList, animatedRef]);
-
-  console.log(quesAnsList, "question answer list");
 
   return (
     <div role="presentation" class="flex h-full flex-col">
@@ -238,7 +246,7 @@ const RightDraw = ({ setQuesAnsList, quesAnsList }) => {
                   onKeyDown={handleKeyDown}
                 ></textarea>
                 <button
-                  disabled=""
+                  disabled={buttonDisabled}
                   onClick={handleSendMessage}
                   class="absolute md:bottom-3 md:right-3 dark:hover:bg-gray-900 dark:disabled:hover:bg-transparent right-2 dark:disabled:bg-white disabled:bg-black disabled:opacity-10 disabled:text-gray-400 enabled:bg-black text-white p-0.5 border border-black rounded-lg dark:border-white dark:bg-white bottom-1.5 transition-colors"
                   data-testid="send-button"

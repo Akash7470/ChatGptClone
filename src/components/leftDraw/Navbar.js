@@ -16,10 +16,7 @@ const Navbar = ({ chatName }) => {
           <ol>
             <li class="relative z-[15]" data-projection-id="526">
               <div class="group relative rounded-lg active:opacity-90 bg-token-surface-secondary">
-                <a
-                  href="/c/0147f884-6d93-450e-848d-1b6fbb36a3eb"
-                  class="flex items-center gap-2 p-2"
-                >
+                <a href="#" class="flex items-center gap-2 p-2">
                   <div
                     class="relative grow overflow-hidden whitespace-nowrap text-white"
                     style={{

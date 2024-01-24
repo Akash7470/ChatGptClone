@@ -92,7 +92,7 @@ const LeftDraw = ({ chatName }) => {
                             </div>
                           </div>
                           <div class="relative -top-px grow -space-y-px overflow-hidden text-ellipsis whitespace-nowrap text-left text-gray-700 dark:text-white">
-                            <div class="font-semibold">Nishant Trivedi</div>
+                            <div class="font-semibold">Testing user</div>
                           </div>
                         </button>
                       </div>
