@@ -21,7 +21,7 @@ const Navbar = ({ chatName }) => {
                     class="relative grow overflow-hidden whitespace-nowrap text-white"
                     style={{
                       color: "white",
-                      fontWeight: "600",
+                      fontWeight: "500",
                       fontSize: "18px",
                     }}
                   >

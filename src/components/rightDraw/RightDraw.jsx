@@ -60,11 +60,11 @@ const RightDraw = ({ setQuesAnsList, quesAnsList }) => {
       in: {
         effect: "fadeIn",
       },
-      callback: () => {
-        setButtonDisable(false);
-      },
+      // callback: () => {
+      //   setButtonDisable(false);
+      // },
     };
-    setButtonDisable(true);
+    // setButtonDisable(true);
     if (animatedRef.current !== null) {
       window.$(animatedRef.current).textillate(animateOptions);
     }
