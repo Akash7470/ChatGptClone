@@ -1,34 +1,44 @@
 import React, { useContext, useState } from "react";
-import { Box, ListItem, Stack, IconButton } from "@mui/material";
+import { Box, ListItem, Stack, ListItemText, IconButton } from "@mui/material";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 // import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 // import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import MyContext from "../context/MyContext";
+import bgTheme from "../../Images/asset_pandas_bg.png";
 
-const LeftDraw = () => {
+const LeftDraw = ({ chats, activeChat, setActiveChat, handleNewChat }) => {
   const [hiddenBtn, setHiddenBtn] = useState(false);
   const contextData = useContext(MyContext);
 
-  console.log(contextData, "contetData:--");
   const visibleBtn = () => {
     setHiddenBtn(!hiddenBtn);
-    console.log("Hello");
+    // console.log("Hello");
   };
 
   const stackStyle = {
-    width: "17vw",
+    // width: "17vw",
     overflowY: "scroll",
-    maxHeight: "80vh",
+    maxHeight: "75vh",
     text: "center",
   };
   const listItems = {
-    boxShadow: 2,
+    boxShadow: 1,
     borderRadius: 2,
-    bgcolor: "silver",
-    color: "black",
+    // bgcolor: "green",
+    color: "#424242",
     lineHeight: "2",
+    "&:hover": {
+      backgroundColor: "#69f0ae",
+      opacity: "0.8",
+    },
+  };
+
+  const sideLogo = {
+    padding: "10px 0px",
+    width: "200px",
+    left: "18vw",
   };
 
   return (
@@ -47,17 +57,12 @@ const LeftDraw = () => {
           },
         }}
       >
-        {/* {hiddenBtn ? (
-          <ArrowForwardIcon sx={{ color: "red" }} onClick={visibleBtn} />
-        ) : (
-          <ArrowBackIcon sx={{ color: "red" }} onClick={visibleBtn} />
-        )} */}
         <DehazeIcon sx={{ color: "red" }} onClick={visibleBtn} />
       </IconButton>
       <Box
         sx={{
-          bgcolor: "black",
-          color: "white",
+          bgcolor: "white",
+          color: "#424242",
           maxWidth: { md: "17vw", lg: "17vw" },
           height: "100vh",
           display: {
@@ -69,93 +74,21 @@ const LeftDraw = () => {
           },
         }}
       >
-        <Navbar />
+        <Box display="flex" justifyContent="center">
+          <img style={sideLogo} src={bgTheme} alt="" srcSet="" />
+        </Box>
+        <Navbar handleNewChat={handleNewChat} />
         <Stack spacing={2} sx={stackStyle}>
-          {contextData
-            ?.slice()
-            .reverse()
-            .map((ques, index) => {
-              return (
-                <ListItem sx={listItems} key={index}>
-                  {ques.length > 20
-                    ? ques.substring(0, 20).concat(" ....")
-                    : ques}
-                </ListItem>
-              );
-            })}
+          <ListItem sx={listItems}>
+            {contextData > 20
+              ? contextData.substring(0, 20).concat(" ....")
+              : contextData}
+          </ListItem>
         </Stack>
         <Footer />
       </Box>
     </>
   );
 };
-
-// export default function TemporaryDrawer() {
-//   const [state, setState] = React.useState({
-//     top: false,
-//     left: false,
-//     bottom: false,
-//     right: false,
-//   });
-
-//   const toggleDrawer = (anchor, open) => (event) => {
-//     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-//       return;
-//     }
-
-//     setState({ ...state, [anchor]: open });
-//   };
-
-//   const list = () => (
-//     <Box
-//       sx={{ width:250 }}
-//       role="presentation"
-//       onClick={toggleDrawer}
-//     >
-//       <List>
-//         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-//           <ListItem key={text} disablePadding>
-//             <ListItemButton>
-//               <ListItemIcon>
-//                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-//               </ListItemIcon>
-//               <ListItemText primary={text} />
-//             </ListItemButton>
-//           </ListItem>
-//         ))}
-//       </List>
-//       <Divider />
-//       <List>
-//         {['All mail', 'Trash', 'Spam'].map((text, index) => (
-//           <ListItem key={text} disablePadding>
-//             <ListItemButton>
-//               <ListItemIcon>
-//                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-//               </ListItemIcon>
-//               <ListItemText primary={text} />
-//             </ListItemButton>
-//           </ListItem>
-//         ))}
-//       </List>
-//     </Box>
-//   );
-
-//   return (
-//     <div>
-//       {['left', 'right', 'top', 'bottom'].map((anchor) => (
-//         <React.Fragment key={anchor}>
-//           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-//           <Drawer
-//             anchor={anchor}
-//             open={state[anchor]}
-//             onClose={toggleDrawer(anchor, false)}
-//           >
-//             {list(anchor)}
-//           </Drawer>
-//         </React.Fragment>
-//       ))}
-//     </div>
-//   );
-// }
 
 export default LeftDraw;

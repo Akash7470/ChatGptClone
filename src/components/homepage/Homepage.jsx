@@ -4,41 +4,23 @@ import RightDraw from "../rightDraw/RightDraw";
 import { Grid, Typography } from "@mui/material";
 import MyContext from "../context/MyContext";
 import _debounce from "lodash/debounce";
-import bgtheme from "../../Images/asset_pandas_bg.png";
 
-const Homepage = () => {
+const Homepage = ({ quesAnsList }) => {
   const [userInputData, setUserInputData] = useState("");
   const [questionStatement, setQuestionStatement] = useState("");
-  const [listQuesStatement, setListQuesStatement] = useState([]);
-
-  const bgThemeStyle = {
-    overflowY: "scroll",
-    maxHeight: "88vh",
-    maxWidth: "lg",
-    bgColor: "#f44336",
-    maxWidth: "300",
-    width: "100%",
-    // backgroundImage: bgtheme,
-  };
-
-  const bgText = {
-    position: "absolute",
-    zIndex: "1",
-    left: "30%",
-    top: "17%",
-    color: "#fafafa",
-    lineHeight: "0.9",
-    fontSize: "10vw",
-    fontWeight: "500",
-  };
-
+  const [answerStatement, setAnswerStatement] = useState("");
   const textFieldRef = useRef(null);
 
   useEffect(() => {
-    if (questionStatement !== "") {
-      setListQuesStatement([...listQuesStatement, questionStatement]);
+    console.log(answerStatement, "sdf");
+    if (questionStatement !== "" && answerStatement !== "") {
+      quesAnsList.push({
+        ques: questionStatement,
+        ans: answerStatement,
+      });
+      setQuestionStatement("");
     }
-  }, [questionStatement]);
+  }, [questionStatement, answerStatement]);
 
   const handleClickUserInput = () => {
     setQuestionStatement(userInputData);
@@ -47,29 +29,33 @@ const Homepage = () => {
       textField.value = "";
     }
   };
+  console.log(quesAnsList, "answ");
   const handleChange = (e) => {
     if (e.target.value === "") {
+      setUserInputData(e.target.value);
     }
-    setUserInputData(e.target.value);
   };
 
   const debouncedClick = _debounce(handleClickUserInput, 100);
 
   return (
     <div>
-      <MyContext.Provider value={listQuesStatement}>
-        <Grid container spacing={2} columns={12}>
+      <MyContext.Provider value={quesAnsList[0]?.ques}>
+        <Grid container spacing={2} style={{ backgroundColor: "#eeeeee" }}>
           <Grid item xs={2}>
             <LeftDraw />
           </Grid>
 
-          <Grid item xs={10} sx={{ zIndex: "100" }} style={bgThemeStyle}>
+          <Grid item xs={9}>
             <RightDraw
+              quesAnsList={quesAnsList}
+              setAnswerStatement={setAnswerStatement}
+              questionStatement={questionStatement}
               handleChange={handleChange}
               debouncedClick={debouncedClick}
               userInputData={userInputData}
-              questionStatement={questionStatement}
               textFieldRef={textFieldRef}
+              answerStatement={answerStatement}
             />
           </Grid>
         </Grid>
